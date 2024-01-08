@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import * as dat from 'dat.gui'
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth,window.innerHeight)
@@ -14,6 +15,7 @@ const camera = new THREE.PerspectiveCamera(
     0.1,
     1000
 )
+
 // control mousemove
 const orbit = new OrbitControls(camera, renderer.domElement)
 
@@ -21,6 +23,16 @@ const axesHelper = new THREE.AxesHelper(5);
 scene.add(axesHelper)
 camera.position.set(-10, 30, 30);
 orbit.update()
+
+// color palet change
+const gui = new dat.GUI();
+const options = {
+    sphereColor: '#ffea00'
+}
+
+gui.addColor(options,'sphereColor').onChange(function(e){
+    sphere.material.color.set(e)
+})
 
 
 const boxGemoetry = new THREE.BoxGeometry();
@@ -40,6 +52,16 @@ place.rotation.x = -0.5 * Math.PI;
 
 const grideHelper = new THREE.GridHelper(30);
 scene.add(grideHelper);
+
+const sphereGemoetry = new THREE.SphereGeometry(4,50,50);
+const spherMaterial = new THREE.MeshBasicMaterial({
+    color:0x0000ff,
+    wireframe: false
+})
+const sphere = new THREE.Mesh(sphereGemoetry , spherMaterial);
+scene.add(sphere)
+
+sphere.position.set(-10,10,0)
 
 function animate(time){
     box.rotation.x = time / 1000;
