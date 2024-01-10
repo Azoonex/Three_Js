@@ -28,7 +28,8 @@ orbit.update()
 const gui = new dat.GUI();
 const options = {
     sphereColor: '#ffea00',
-    wireframe:false
+    wireframe:false,
+    speed: 0.01
 }
 
 gui.addColor(options,'sphereColor').onChange(function(e){
@@ -39,6 +40,7 @@ gui.add(options,'wireframe').onChange(function(e){
     sphere.material.wireframe = e;
 });
 
+gui.add(options, 'speed',0,0.1)
 
 const boxGemoetry = new THREE.BoxGeometry();
 const boxMaterial = new THREE.MeshBasicMaterial({color:0x00FF00})
@@ -61,7 +63,8 @@ scene.add(grideHelper);
 const sphereGemoetry = new THREE.SphereGeometry(4,50,50);
 const spherMaterial = new THREE.MeshBasicMaterial({
     color:0x0000ff,
-    wireframe: false
+    wireframe: false,
+   
 })
 const sphere = new THREE.Mesh(sphereGemoetry , spherMaterial);
 scene.add(sphere)
@@ -70,12 +73,15 @@ sphere.position.set(-10,10,0)
 
 // move jump
 let step = 0;
-let speed = 0.01;
+
 
 function animate(time){
     box.rotation.x = time / 1000;
     box.rotation.y = time / 1000;
-    step += speed;
+
+    step += options.
+    
+    speed;
     sphere.position.y = 10 * Math.abs(Math.sin(step))
     renderer.render(scene, camera)
 }
