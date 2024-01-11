@@ -61,6 +61,11 @@ const box = new THREE.Mesh(boxGemoetry,boxMaterial);
 scene.add(box)
 
 // دیواره
+const placeGemoertry = new THREE.PlaneGeometry(30, 30);
+const PlaneMaterial = new THREE.MeshBasicMaterial({
+    color: 0xffffff,
+    side: THREE.DoubleSide
+})
 
 const place = new THREE.Mesh(placeGemoertry, PlaneMaterial)
 scene.add(place)
