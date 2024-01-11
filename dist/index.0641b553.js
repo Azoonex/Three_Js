@@ -589,6 +589,9 @@ const axesHelper = new _three.AxesHelper(5);
 scene.add(axesHelper);
 camera.position.set(-10, 30, 30);
 orbit.update();
+// light shadow
+const ambientLight = new _three.AmbientLight(0x33333);
+scene.add(ambientLight);
 // color palet change
 const gui = new _datGui.GUI();
 const options = {
@@ -602,9 +605,13 @@ gui.addColor(options, "sphereColor").onChange(function(e) {
 gui.add(options, "wireframe").onChange(function(e) {
     sphere.material.wireframe = e;
 });
+const dircationLight = new _three.DirectionalLight(0xffffff, 0.4);
+scene.add(dircationLight);
+const dLightHelper = new _three.DirectionalLightHelper(dircationLight);
+scene.add(dLightHelper);
 gui.add(options, "speed", 0, 0.1);
 const boxGemoetry = new _three.BoxGeometry();
-const boxMaterial = new _three.MeshBasicMaterial({
+const boxMaterial = new _three.MeshStandardMaterial({
     color: 0x00FF00
 });
 const box = new _three.Mesh(boxGemoetry, boxMaterial);

@@ -24,6 +24,13 @@ scene.add(axesHelper)
 camera.position.set(-10, 30, 30);
 orbit.update()
 
+// light shadow
+
+const ambientLight = new THREE.AmbientLight(0x33333);
+scene.add(ambientLight)
+
+
+
 // color palet change
 const gui = new dat.GUI();
 const options = {
@@ -40,10 +47,16 @@ gui.add(options,'wireframe').onChange(function(e){
     sphere.material.wireframe = e;
 });
 
+
+const dircationLight = new THREE.DirectionalLight(0xffffff,0.4)
+scene.add(dircationLight)
+const dLightHelper = new THREE.DirectionalLightHelper(dircationLight)
+scene.add(dLightHelper)
+
 gui.add(options, 'speed',0,0.1)
 
 const boxGemoetry = new THREE.BoxGeometry();
-const boxMaterial = new THREE.MeshBasicMaterial({color:0x00FF00})
+const boxMaterial = new THREE.MeshStandardMaterial({color:0x00FF00})
 const box = new THREE.Mesh(boxGemoetry,boxMaterial);
 scene.add(box)
 
@@ -68,25 +81,17 @@ const spherMaterial = new THREE.MeshBasicMaterial({
 })
 const sphere = new THREE.Mesh(sphereGemoetry , spherMaterial);
 scene.add(sphere)
-
 sphere.position.set(-10,10,0)
 
 // move jump
 let step = 0;
 
-
 function animate(time){
     box.rotation.x = time / 1000;
     box.rotation.y = time / 1000;
-
     step += options.
-    
     speed;
     sphere.position.y = 10 * Math.abs(Math.sin(step))
     renderer.render(scene, camera)
 }
 renderer.setAnimationLoop(animate)
-
-
-
-
